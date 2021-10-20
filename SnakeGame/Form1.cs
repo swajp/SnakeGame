@@ -93,7 +93,7 @@ namespace SnakeGame
 
             tailSnake2 = new List<PictureBox>();
             direction1 = 0;
-            speed2 = 2;
+            speed2 = -2;
             snakeTwo = new PictureBox();
             snakeTwo.Size = new Size(13, 13);
             snakeTwo.Location = new Point(ClientSize.Width - 60, 10);
