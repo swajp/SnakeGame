@@ -16,11 +16,15 @@ namespace SnakeGame
         List<PictureBox> tailSnake1;
         double direction1;
         double speed1;
+        bool a;
+        bool d;
 
         PictureBox snakeTwo;
         List<PictureBox> tailSnake2;
         double direction2;
         double speed2;
+        bool left;
+        bool right;
 
         Timer timer;
 
@@ -29,7 +33,7 @@ namespace SnakeGame
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyDown += Form1_KeyDown;
-            this.KeyDown += Form2_KeyDown;
+            this.KeyUp += Form1_KeyUp;
             CreateSnakes();
             timer = new Timer();
             timer.Interval = 50;
@@ -40,27 +44,60 @@ namespace SnakeGame
         {
             if (e.KeyCode == Keys.A)
             {
-                direction1 += 0.1;
+                a = true;
             }
             else if (e.KeyCode == Keys.D)
             {
-                direction1 -= 0.1;
+                d = true;
             }
-        }
-        private void Form2_KeyDown(object sender, KeyEventArgs e)
-        {
             if (e.KeyCode == Keys.Left)
             {
-                direction2 += 0.1;
+                left = true;
             }
             else if (e.KeyCode == Keys.Right)
             {
-                direction2 -= 0.1;
+                right = true;
+            }
+        }
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
+            {
+                a = false;
+            }
+            else if (e.KeyCode == Keys.D)
+            {
+                d = false;
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                left = false;
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                right = false;
             }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            if (a)
+            {
+                direction1 += 0.4;
+            }
+            if (d)
+            {
+                direction1 -= 0.4;
+            }
+            if (left)
+            {
+                direction2 += 0.4;
+            }
+            if (right)
+            {
+                direction2 -= 0.4;
+            }
+
             tailSnake1.Add(snakeOne);
             snakeOne = new PictureBox();
             snakeOne.Size = new Size(13, 13);
@@ -84,7 +121,7 @@ namespace SnakeGame
         {
             tailSnake1 = new List<PictureBox>();
             direction1 = 0;
-            speed1 = 2;
+            speed1 = 2.3;
             snakeOne = new PictureBox();
             snakeOne.Size = new Size(13,13);
             snakeOne.Location = new Point(10,10);
@@ -93,7 +130,7 @@ namespace SnakeGame
 
             tailSnake2 = new List<PictureBox>();
             direction1 = 0;
-            speed2 = -2;
+            speed2 = -2.3;
             snakeTwo = new PictureBox();
             snakeTwo.Size = new Size(13, 13);
             snakeTwo.Location = new Point(ClientSize.Width - 60, 10);
